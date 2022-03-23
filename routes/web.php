@@ -21,5 +21,10 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 });
+Route::get('/cadastroUsuario', function () {
+    return view('cadastroUsuario');
+});
 
 Route::post('/login', [LoginController::class, 'loginUsuario']);
+
+Route::post('/registrarUsuario', [LoginController::class, 'cadastrarUsuario']);

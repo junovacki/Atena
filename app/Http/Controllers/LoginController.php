@@ -23,4 +23,17 @@ class LoginController extends Controller
             return redirect('/dashboard');
         }
     }
+
+    public static function cadastrarUsuario(Request $request){
+        $loginModel = new LoginModel();
+
+        $error = $loginModel->cadastraLogin($request->all());
+
+
+        if($error != null){
+            return redirect()->back()->with('alert', $error);
+        }else{
+            return redirect('/cadastroUsuario');
+        }
+    }
 }

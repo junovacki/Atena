@@ -32,4 +32,24 @@ class LoginModel extends Model
             setcookie("nivelUsuario",$select->nivelAcesso);
         }
     }
+    public function cadastraLogin($params){
+        
+        $login = $params['login'];
+        $senha = $params['senha'];
+        $tipoUsuario = $params['tipoUsuario'];
+        $select = DB::table('users')
+                    ->select('user')
+                    ->whereRaw('user = ? ', [$login])->first();
+
+        if($select != null){
+            return $error[]='Login já existe no sistema!!';
+        }else{
+            $insert = DB::table('users')
+                        ->insert(['user' => $login,'password' => $senha,'nivelAcesso' => $tipoUsuario]);
+            
+            if($insert){
+                return $error[]='Usuário cadastrado com sucesso!!';
+            }
+        }
+    }
 }
