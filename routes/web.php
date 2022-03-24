@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\AdmController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,17 @@ Route::get('/dashboard', function () {
 Route::get('/cadastroUsuario', function () {
     return view('cadastroUsuario');
 });
+Route::get('/cadastroCurso', function () {
+    return view('cadastroCurso');
+});
+Route::get('/cadastroDisciplina', function () {
+    return view('cadastroDisciplina');
+});
 
 Route::post('/login', [LoginController::class, 'loginUsuario']);
+
+Route::post('/registrarCurso', [AdmController::class, 'cadastrarCurso']);
+
+Route::post('/registrarDisciplina', [AdmController::class, 'cadastrarDisciplina']);
 
 Route::post('/registrarUsuario', [LoginController::class, 'cadastrarUsuario']);

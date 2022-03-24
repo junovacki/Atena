@@ -30,6 +30,9 @@
 #login{
     width: 66%;
 }
+#nome_curso{
+    width: 49%;
+}
 #campoSenha{
     margin-top: 3%;
     margin-left: 10%;
@@ -43,5 +46,9 @@
 }
 #submitUsuario{
     margin-top: 5%;
+    margin-left: 45%;
+}
+#submitCurso{
+    margin-top: 41%;
     margin-left: 45%;
 }

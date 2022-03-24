@@ -8,12 +8,18 @@
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
 </head>
 <body id="body">
-    <div id="botaoSair">
+    <div id="botaoSair" style="position: absolute; top: 8px; right:16px;">
         <a href="/">Sair</a>
     </div>
 @if ($_COOKIE['nivelUsuario'] == 0 )
     <div id="botaoCadUsuario">
         <a href="/cadastroUsuario">Cadastro de usuário</a>
+    </div>
+    <div id="botaoCadUsuario">
+        <a href="/cadastroCurso">Cadastro de curso</a>
+    </div>
+    <div id="botaoCadUsuario">
+        <a href="/cadastroDisciplina">Cadastro de disciplina</a>
     </div>
     
     <h1>
