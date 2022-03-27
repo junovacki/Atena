@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdmController;
+use App\Http\Controllers\ProfessorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,9 @@ Route::get('/cadastroCurso', function () {
 Route::get('/cadastroDisciplina', function () {
     return view('cadastroDisciplina');
 });
+Route::get('/cadastroPergunta', function () {
+    return view('cadastroPergunta');
+});
 
 Route::post('/login', [LoginController::class, 'loginUsuario']);
 
@@ -39,3 +43,5 @@ Route::post('/registrarCurso', [AdmController::class, 'cadastrarCurso']);
 Route::post('/registrarDisciplina', [AdmController::class, 'cadastrarDisciplina']);
 
 Route::post('/registrarUsuario', [LoginController::class, 'cadastrarUsuario']);
+
+Route::post('/registrarPergunta', [ProfessorController::class, 'cadastraPergunta']);

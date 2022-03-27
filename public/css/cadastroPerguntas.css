@@ -1,0 +1,57 @@
+#formCadastro{
+    background-color: whitesmoke;
+    float: inherit;
+    position: center;
+    width: 700px;
+    height: 700px;
+    margin-left: 26%;
+    margin-top: 70px;
+    border-style: solid;
+    border-radius: 20% !important;
+}
+#body{
+    background-color: mediumpurple;
+}
+#botaoVoltar {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    position: center;
+}
+#campoCurso{
+    margin-top: 10%;
+    margin-left: 10%;
+}
+#campoDisciplina{
+    margin-top: 3%;
+    margin-left: 10%;
+}
+#campoPergunta{
+    margin-top: 3%;
+    margin-left: 10%;
+}
+#campoRespostaA{
+    margin-top: 3%;
+    margin-left: 10%;
+}
+#campoRespostaB{
+    margin-top: 3%;
+    margin-left: 10%;
+}
+#campoRespostaC{
+    margin-top: 3%;
+    margin-left: 10%;
+}
+#campoRespostaD{
+    margin-top: 3%;
+    margin-left: 10%;
+}
+#submitCurso{
+    margin-top: 5%;
+    margin-left: 45%;
+}

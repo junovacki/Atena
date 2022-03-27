@@ -33,6 +33,15 @@
     </h1>
 @endif
 
+@if ($_COOKIE['nivelUsuario'] == 2 )
+    <div id="botaoCadUsuario">
+        <a href="/cadastroPergunta">Cadastro de pergunta</a>
+    </div>
+    <h1>
+        <marquee>PROFESSOR <?=$_COOKIE['login']?> TA ON</marquee>
+    </h1>
+@endif
+
 
 
     
