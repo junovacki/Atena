@@ -5,6 +5,7 @@ use App\Http\Controllers;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdmController;
 use App\Http\Controllers\ProfessorController;
+use App\Models\LoginModel;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,12 @@ Route::get('/cadastroDisciplina', function () {
 Route::get('/cadastroPergunta', function () {
     return view('cadastroPergunta');
 });
+Route::get('/editarUsuario/{id}', function ($id) {
+    return view('editarUsuario', ['idUsuario' => $id]);
+});
+Route::get('/deletarUsuario/{id}', function (LoginModel $ids, $id) {
+    $ids->deletaLogin($id);
+});
 
 Route::post('/login', [LoginController::class, 'loginUsuario']);
 
@@ -43,5 +50,7 @@ Route::post('/registrarCurso', [AdmController::class, 'cadastrarCurso']);
 Route::post('/registrarDisciplina', [AdmController::class, 'cadastrarDisciplina']);
 
 Route::post('/registrarUsuario', [LoginController::class, 'cadastrarUsuario']);
+
+Route::post('/atualizarUsuario', [LoginController::class, 'atualizarUsuario']);
 
 Route::post('/registrarPergunta', [ProfessorController::class, 'cadastraPergunta']);

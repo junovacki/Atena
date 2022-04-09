@@ -48,7 +48,7 @@ use Illuminate\Support\Facades\DB;
     </h1>
     <div class="page-content page-container" id="page-content">
         <div class="padding">
-            <div class="row container d-flex justify-content-center">
+            <div class="row container d-flex">
                 <div class="col-lg-4 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
@@ -60,7 +60,7 @@ use Illuminate\Support\Facades\DB;
                                         <tr>
                                             <th>Usuário</th>
                                             <th>Tipo</th>
-                                            <th>Status</th>
+                                            <th>AÇÃO</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -69,14 +69,15 @@ use Illuminate\Support\Facades\DB;
                                             <td><?= $user->user?></td>
                                             <td><?= $user->nivelAcesso?></td>
                                             <td>
-                                                <a href="#" id="view" class="button">
+                                                <a href="editarUsuario/<?= $user->id ?>" id="view" class="button">
                                                     <i class="fa fa-eye fa-lg fa-align-center" aria-hidden="true"></i>
                                                 </a> 
-                                                <a href="#" id="view" class="button">
+                                                <button type="button" class="button" id="view"  onclick="deletarUsuario(<?= $user->id?>)">
                                                     <i class="fa fa-solid fa-ban " ></i>
-                                                </a>    
+                                                </button>    
                                             </td>
                                         </tr>
+                                        
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -107,8 +108,14 @@ use Illuminate\Support\Facades\DB;
     </h1>
 @endif
 
-
-
+<script>
+    function deletarUsuario(id) {
+    let text = "Deseja realmente deletar o usuário?";
+    if (confirm(text) == true) {
+        window.location.href='deletarUsuario/'+id;
+    } 
+    }
+</script>
     
 </body>
 </html>

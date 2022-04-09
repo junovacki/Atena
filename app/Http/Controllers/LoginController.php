@@ -36,4 +36,30 @@ class LoginController extends Controller
             return redirect('/cadastroUsuario');
         }
     }
+
+    public static function atualizarUsuario(Request $request){
+        $loginModel = new LoginModel();
+
+        $error = $loginModel->editaLogin($request->all());
+
+
+        if($error != null){
+            return redirect()->back()->with('alert', $error);
+        }else{
+            return redirect('/editarUsuario');
+        }
+    }
+
+    public static function removerUsuario(Request $request){
+        $loginModel = new LoginModel();
+
+        $error = $loginModel->deletaLogin($request->all());
+
+
+        if($error != null){
+            return redirect()->back()->with('alert', $error);
+        }else{
+            return redirect('/dashboard');
+        }
+    }
 }

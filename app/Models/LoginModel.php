@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use PhpParser\Node\Expr\BinaryOp\Equal;
+
+use function PHPUnit\Framework\equalTo;
 
 class LoginModel extends Model
 {
@@ -51,5 +54,31 @@ class LoginModel extends Model
                 return $error[]='Usuário cadastrado com sucesso!!';
             }
         }
+    }
+    public function editaLogin($params){
+        
+        $login = $params['login'];
+        $senha = $params['senha'];
+        $tipoUsuario = $params['tipoUsuario'];
+        
+        $insert = DB::table('users')
+                    ->where('id', $params['idUsuario'])
+                    ->update(['user' => $login,'password' => $senha,'nivelAcesso' => $tipoUsuario])
+                    ;
+        
+        if($insert){
+            return $error[]='Usuário atualizado com sucesso!!';
+        }
+    }
+    public function deletaLogin($id){
+        
+        $insert = DB::table('users')
+                    
+                    ->delete($id)
+                    ;
+        
+        echo "<script language='javascript' type='text/javascript'>
+        alert('Usuário deletado com sucesso');
+        window.location.href='/dashboard';</script>";
     }
 }
