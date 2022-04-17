@@ -158,3 +158,16 @@
     background-color: #8E24AA;
     color: #fff
 }
+table {
+    table-layout:fixed;
+}
+
+table td {
+    overflow:hidden;
+}
+.content_td p{
+    max-width: 100%;
+    max-height: 50px;
+    overflow-y: scroll;
+    text-overflow: ellipsis;
+}

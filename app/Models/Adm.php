@@ -46,4 +46,46 @@ class Adm extends Model
             }
         }
     }
+    public function editaCurso($params){
+        $insert = DB::table('cursos')
+                    ->where('id', $params['idCurso'])
+                    ->update(['nome_curso' => $params['nomeCurso'],'tipo_curso' => $params['tipoCurso']])
+                    ;
+        
+        if($insert){
+            return $error[]='Curso atualizado com sucesso!!';
+        }
+    }
+    public function deletaCurso($id){
+        
+        $insert = DB::table('cursos')
+                    
+                    ->delete($id)
+                    ;
+        
+        echo "<script language='javascript' type='text/javascript'>
+        alert('Curso deletado com sucesso');
+        window.location.href='/dashboard';</script>";
+    }
+    public function editaDisciplina($params){
+        $insert = DB::table('disciplinas')
+                    ->where('id', $params['idDisciplina'])
+                    ->update(['nome_disciplina' => $params['nomeDisciplina']])
+                    ;
+        
+        if($insert){
+            return $error[]='Disciplina atualizada com sucesso!!';
+        }
+    }
+    public function deletaDisciplina($id){
+        
+        $insert = DB::table('disciplinas')
+                    
+                    ->delete($id)
+                    ;
+        
+        echo "<script language='javascript' type='text/javascript'>
+        alert('Disciplina deletada com sucesso');
+        window.location.href='/dashboard';</script>";
+    }
 }

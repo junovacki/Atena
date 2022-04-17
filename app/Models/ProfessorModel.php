@@ -45,4 +45,54 @@ class ProfessorModel extends Model
         }
             
     }
+    public function editarPergunta($params)
+    {
+        
+        $alternativaA = false;
+        $alternativaB = false;
+        $alternativaC = false;
+        $alternativaD = false;
+        if(isset($params['checkA'])){
+            $alternativaA = true;
+        }
+        if(isset($params['checkB'])){
+            $alternativaB = true;
+        }
+        if(isset($params['checkC'])){
+            $alternativaC = true;
+        }   
+        if(isset($params['checkD'])){
+            $alternativaD = true;
+        }
+        if(isset($params['curso']) == false){
+            return $error[]='Selecione um curso!!';
+        }
+        if(isset($params['disciplina']) == false){
+            return $error[]='Selecione uma disciplina!!';
+        }
+        if($alternativaA == false && $alternativaB == false && $alternativaC == false && $alternativaD == false){
+            return $error[]='Selecione uma resposta como válida!!';
+        }
+        $insert = DB::table('perguntas')
+                        ->where('id', $params['idPergunta'])
+                        ->update(['texto_pergunta' => $params['pergunta'],'curso' => $params['curso'],'disciplina' => $params['disciplina'], 'texto_resposta_a' => $params['respostaA'], 'texto_resposta_b' => $params['respostaB'], 'texto_resposta_c' => $params['respostaC'], 'texto_resposta_d' => $params['respostaD'], 'alternativa_a' => $alternativaA, 'alternativa_b' => $alternativaB, 'alternativa_c' => $alternativaC, 'alternativa_d' => $alternativaD]);
+
+        if($insert){
+            return $error[]='Pergunta atualizada com sucesso!!';
+        }else{
+            return $error[]='Altere alguma informação para que a pergunta seja alterada!!';
+        }
+            
+    }
+    public function deletaPergunta($id){
+        
+        $insert = DB::table('perguntas')
+                    
+                    ->delete($id)
+                    ;
+        
+        echo "<script language='javascript' type='text/javascript'>
+        alert('Pergunta deletada com sucesso');
+        window.location.href='/dashboard';</script>";
+    }
 }

@@ -20,4 +20,16 @@ class ProfessorController extends Controller
             return redirect('/dashboard');
         }
     }
+    public static function editaPergunta(Request $request){
+        $professorModel = new ProfessorModel();
+
+        $error = $professorModel->editarPergunta($request->all());
+
+
+        if($error != null){
+            return redirect()->back()->with('alert', $error);
+        }else{
+            return redirect('/dashboard');
+        }
+    }
 }

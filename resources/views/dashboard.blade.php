@@ -1,19 +1,42 @@
 <?php
 use Illuminate\Support\Facades\DB;
 
-    $usuarios = DB::select("SELECT * FROM users");
-    foreach($usuarios as $user){
-        switch ($user->nivelAcesso){
-            case 0:
-                $user->nivelAcesso='Administrador';
-                break;
-            case 1:
-                $user->nivelAcesso='Coordenador';
-                break;
-            case 2:
-                $user->nivelAcesso='Professor';
-                break;
+    if($_COOKIE['nivelUsuario'] == 0){
+        $usuarios = DB::select("SELECT * FROM users");
+        $disciplinas = DB::select("SELECT * FROM disciplinas");
+        $cursos = DB::select("SELECT * FROM cursos");
+        foreach($usuarios as $user){
+            switch ($user->nivelAcesso){
+                case 0:
+                    $user->nivelAcesso='Administrador';
+                    break;
+                case 1:
+                    $user->nivelAcesso='Coordenador';
+                    break;
+                case 2:
+                    $user->nivelAcesso='Professor';
+                    break;
+            }
         }
+        foreach($cursos as $curso){
+            switch ($curso->tipo_curso){
+                case 0:
+                    $curso->tipo_curso='Tecnologia';
+                    break;
+                case 1:
+                    $curso->tipo_curso='Saúde';
+                    break;
+                case 2:
+                    $curso->tipo_curso='Exatas';
+                    break;
+                case 3:
+                    $curso->tipo_curso='Humanas';
+                    break;
+            }
+        }
+    }
+    if($_COOKIE['nivelUsuario'] == 2){
+        $perguntas = DB::select("SELECT * FROM perguntas WHERE criado_por = ?", [$_COOKIE['login']]);
     }
 ?>
 <!DOCTYPE html>
@@ -86,6 +109,78 @@ use Illuminate\Support\Facades\DB;
                     </div>
                     
                 </div>
+                <div class="col-lg-4 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Cursos Cadastrados</h4>
+                            <p class="card-description"> Todos os cursos cadastrados </p>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Tipo</th>
+                                            <th>AÇÃO</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($cursos as $curso)
+                                        <tr>
+                                            <td><?= $curso->nome_curso?></td>
+                                            <td><?= $curso->tipo_curso?></td>
+                                            <td>
+                                                <a href="editarCurso/<?= $curso->id ?>" id="view" class="button">
+                                                    <i class="fa fa-eye fa-lg fa-align-center" aria-hidden="true"></i>
+                                                </a> 
+                                                <button type="button" class="button" id="view"  onclick="deletarCurso(<?= $curso->id?>)">
+                                                    <i class="fa fa-solid fa-ban " ></i>
+                                                </button>    
+                                            </td>
+                                        </tr>
+                                        
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="col-lg-4 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Disciplinas Cadastradas</h4>
+                            <p class="card-description"> Todas as disciplinas cadastradas </p>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>AÇÃO</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($disciplinas as $disciplina)
+                                        <tr>
+                                            <td><?= $disciplina->nome_disciplina?></td>
+                                            <td>
+                                                <a href="editarDisciplina/<?= $disciplina->id ?>" id="view" class="button">
+                                                    <i class="fa fa-eye fa-lg fa-align-center" aria-hidden="true"></i>
+                                                </a> 
+                                                <button type="button" class="button" id="view"  onclick="deletarDisciplina(<?= $disciplina->id?>)">
+                                                    <i class="fa fa-solid fa-ban " ></i>
+                                                </button>    
+                                            </td>
+                                        </tr>
+                                        
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
             </div>
         </div>
         
@@ -106,6 +201,48 @@ use Illuminate\Support\Facades\DB;
     <h1>
         <marquee>PROFESSOR <?=$_COOKIE['login']?> TA ON</marquee>
     </h1>
+    <div class="page-content page-container" id="page-content">
+        <div class="padding">
+            <div class="row container d-flex">
+                <div class="col-lg-4 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Perguntas Cadastradas</h4>
+                            <p class="card-description"> Todas as perguntas cadastradas por você </p>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>TEXTO</th>
+                                            <th>AÇÃO</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($perguntas as $pergunta)
+                                        <tr>
+                                            <td class="content_td"><p><?= $pergunta->texto_pergunta?></p></td>
+                                            <td>
+                                                <a href="editarPergunta/<?= $pergunta->id ?>" id="view" class="button">
+                                                    <i class="fa fa-eye fa-lg fa-align-center" aria-hidden="true"></i>
+                                                </a> 
+                                                <button type="button" class="button" id="view"  onclick="deletarPergunta(<?= $pergunta->id?>)">
+                                                    <i class="fa fa-solid fa-ban " ></i>
+                                                </button>    
+                                            </td>
+                                        </tr>
+                                        
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+    </div>
 @endif
 
 <script>
@@ -113,6 +250,24 @@ use Illuminate\Support\Facades\DB;
     let text = "Deseja realmente deletar o usuário?";
     if (confirm(text) == true) {
         window.location.href='deletarUsuario/'+id;
+    } 
+    }
+    function deletarCurso(id) {
+    let text = "Deseja realmente deletar o curso?";
+    if (confirm(text) == true) {
+        window.location.href='deletarCurso/'+id;
+    } 
+    }
+    function deletarDisciplina(id) {
+    let text = "Deseja realmente deletar a disciplina?";
+    if (confirm(text) == true) {
+        window.location.href='deletarDisciplina/'+id;
+    } 
+    }
+    function deletarPergunta(id) {
+    let text = "Deseja realmente deletar a pergunta?";
+    if (confirm(text) == true) {
+        window.location.href='deletarPergunta/'+id;
     } 
     }
 </script>

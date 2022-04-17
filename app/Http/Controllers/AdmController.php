@@ -36,4 +36,24 @@ class AdmController extends Controller
             return redirect('/cadastroDisciplina');
         }
     }
+    public static function atualizarDisciplina(Request $request){
+        $admModel = new Adm();
+        $id = $request->all();
+        $error = $admModel->editaDisciplina($request->all());
+        if($error != null){
+            return redirect()->back()->with('alert', $error);
+        }else{
+            return redirect('/editarDisciplina/'.$id['idDisciplina'].'/');
+        }
+    }
+    public static function atualizarCurso(Request $request){
+        $admModel = new Adm();
+        $id = $request->all();
+        $error = $admModel->editaCurso($request->all());
+        if($error != null){
+            return redirect()->back()->with('alert', $error);
+        }else{
+            return redirect('/editarCurso/'.$id['idCurso'].'/');
+        }
+    }
 }
