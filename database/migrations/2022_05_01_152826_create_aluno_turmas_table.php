@@ -20,6 +20,9 @@ class CreateAlunoTurmasTable extends Migration
             $table->string('nota');
             $table->string('resultadoNota');
             $table->timestamps();
+
+            $table->foreign('idTurma')->references('idTurma')->on('turmas');
+            $table->foreign('idAluno')->references('idAluno')->on('alunos');
         });
     }
 
