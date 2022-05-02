@@ -14,10 +14,17 @@ class CreateCursosTable extends Migration
     public function up()
     {
         Schema::create('cursos', function (Blueprint $table) {
-            $table->id()->autoIncrement();
+            $table->id('idCurso')->autoIncrement();
             $table->string('nome_curso');
-            $table->string('tipo_curso');
+            $table->unsignedBigInteger('idModalidade');
+            $table->unsignedBigInteger('idCategoria');
+            $table->unsignedBigInteger('idTurno');
+            $table->boolean('ativo');
             $table->timestamps();
+
+            $table->foreign('idModalidade')->references('idModalidade')->on('modalidades');
+            $table->foreign('idCategoria')->references('idCategoria')->on('categorias');
+            $table->foreign('idTurno')->references('idTurno')->on('turnos');
         });
     }
 

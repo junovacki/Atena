@@ -14,20 +14,25 @@ class CreatePerguntasTable extends Migration
     public function up()
     {
         Schema::create('perguntas', function (Blueprint $table) {
-            $table->id()->autoIncrement();
+            $table->bigIncrements('idPergunta');
             $table->text('criado_por');
             $table->text('texto_pergunta');
-            $table->text('curso');
-            $table->text('disciplina');
+            $table->text('idCurso');
+            $table->unsignedBigInteger('idDisciplina');
             $table->text('texto_resposta_a');
             $table->text('texto_resposta_b');
             $table->text('texto_resposta_c');
             $table->text('texto_resposta_d');
+            $table->text('texto_resposta_e');
             $table->text('alternativa_a');
             $table->text('alternativa_b');
             $table->text('alternativa_c');
             $table->text('alternativa_d');
+            $table->text('alternativa_e');
             $table->timestamps();
+
+            $table->foreign('idDisciplina')->references('idDisciplina')->on('disciplinas');
+
         });
     }
 

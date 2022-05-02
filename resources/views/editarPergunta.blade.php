@@ -43,10 +43,11 @@
             </select>
         </div>
         <div id="campoPergunta">
-            Pergunta: <textarea rows = "5" cols = "60" name = "pergunta">
+            Questão: <textarea rows = "5" cols = "60" name = "pergunta">
             <?= $pergunta[0]->texto_pergunta?>
          </textarea>
         </div> 
+        RADIO BUTTON
         <div id="campoRespostaA">
             <input type="checkbox" name="checkA" <?php if($pergunta[0]->alternativa_a == 1){ echo 'checked="checked"';} ?>> A) <textarea rows = "3" cols = "60" name = "respostaA" style="margin-left: 35px;">
             <?= $pergunta[0]->texto_resposta_a?>

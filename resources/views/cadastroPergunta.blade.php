@@ -43,10 +43,11 @@
             </select>
         </div>
         <div id="campoPergunta">
-            Pergunta: <textarea rows = "5" cols = "60" name = "pergunta">
+            Questão: <textarea rows = "5" cols = "60" name = "pergunta">
             Escreva o texto da pergunta aqui...
          </textarea>
         </div> 
+        RADIO BUTTON
         <div id="campoRespostaA">
             <input type="checkbox" name="checkA"> A) <textarea rows = "3" cols = "60" name = "respostaA" style="margin-left: 35px;">
             Escreva o texto da resposta aqui...
