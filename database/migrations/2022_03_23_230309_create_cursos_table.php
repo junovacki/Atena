@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateCursosTable extends Migration
 {
@@ -26,6 +27,9 @@ class CreateCursosTable extends Migration
             $table->foreign('idCategoria')->references('idCategoria')->on('categorias');
             $table->foreign('idTurno')->references('idTurno')->on('turnos');
         });
+        DB::table('cursos')->insert(array('nome_curso'=>'Analise de Sistemas','idModalidade'=>1, 'idCategoria'=>1, 'idTurno'=>1, 'ativo'=> true));
+        DB::table('cursos')->insert(array('nome_curso'=>'Enfermagem','idModalidade'=>1, 'idCategoria'=>3, 'idTurno'=>1, 'ativo'=> true));
+
     }
 
     /**

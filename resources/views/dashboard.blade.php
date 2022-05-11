@@ -1,19 +1,19 @@
 <?php
 use Illuminate\Support\Facades\DB;
 
-    if($_COOKIE['nivelUsuario'] == 0){
+    if($_COOKIE['nivelUsuario'] == 1){
         $usuarios = DB::select("SELECT * FROM users");
         $disciplinas = DB::select("SELECT * FROM disciplinas");
         $cursos = DB::select("SELECT * FROM cursos");
         foreach($usuarios as $user){
             switch ($user->nivelAcesso){
-                case 0:
+                case 1:
                     $user->nivelAcesso='Administrador';
                     break;
-                case 1:
+                case 2:
                     $user->nivelAcesso='Coordenador';
                     break;
-                case 2:
+                case 3:
                     $user->nivelAcesso='Professor';
                     break;
             }
@@ -35,7 +35,7 @@ use Illuminate\Support\Facades\DB;
             }
         }
     }
-    if($_COOKIE['nivelUsuario'] == 2){
+    if($_COOKIE['nivelUsuario'] == 3){
         $perguntas = DB::select("SELECT * FROM perguntas WHERE criado_por = ?", [$_COOKIE['login']]);
     }
 ?>
@@ -55,7 +55,7 @@ use Illuminate\Support\Facades\DB;
     <div id="botaoSair" style="position: absolute; top: 8px; right:16px;">
         <a href="/">Sair</a>
     </div>
-@if ($_COOKIE['nivelUsuario'] == 0 )
+@if ($_COOKIE['nivelUsuario'] == 1 )
     <div id="botaoCadUsuario">
         <a href="/cadastroUsuario">Cadastro de usuário</a>
     </div>
@@ -92,10 +92,10 @@ use Illuminate\Support\Facades\DB;
                                             <td><?= $user->user?></td>
                                             <td><?= $user->nivelAcesso?></td>
                                             <td>
-                                                <a href="editarUsuario/<?= $user->id ?>" id="view" class="button">
+                                                <a href="editarUsuario/<?= $user->idUser ?>" id="view" class="button">
                                                     <i class="fa fa-eye fa-lg fa-align-center" aria-hidden="true"></i>
                                                 </a> 
-                                                <button type="button" class="button" id="view"  onclick="deletarUsuario(<?= $user->id?>)">
+                                                <button type="button" class="button" id="view"  onclick="deletarUsuario(<?= $user->idUser?>)">
                                                     <i class="fa fa-solid fa-ban " ></i>
                                                 </button>    
                                             </td>
@@ -188,13 +188,13 @@ use Illuminate\Support\Facades\DB;
     
 @endif
 
-@if ($_COOKIE['nivelUsuario'] == 1 )
+@if ($_COOKIE['nivelUsuario'] == 2 )
     <h1>
         <marquee>COORDENADOR <?=$_COOKIE['login']?> TA ON</marquee>
     </h1>
 @endif
 
-@if ($_COOKIE['nivelUsuario'] == 2 )
+@if ($_COOKIE['nivelUsuario'] == 3 )
     <div id="botaoCadUsuario">
         <a href="/cadastroPergunta">Cadastro de pergunta</a>
     </div>
@@ -222,10 +222,10 @@ use Illuminate\Support\Facades\DB;
                                         <tr>
                                             <td class="content_td"><p><?= $pergunta->texto_pergunta?></p></td>
                                             <td>
-                                                <a href="editarPergunta/<?= $pergunta->id ?>" id="view" class="button">
+                                                <a href="editarPergunta/<?= $pergunta->idPergunta ?>" id="view" class="button">
                                                     <i class="fa fa-eye fa-lg fa-align-center" aria-hidden="true"></i>
                                                 </a> 
-                                                <button type="button" class="button" id="view"  onclick="deletarPergunta(<?= $pergunta->id?>)">
+                                                <button type="button" class="button" id="view"  onclick="deletarPergunta(<?= $pergunta->idPergunta?>)">
                                                     <i class="fa fa-solid fa-ban " ></i>
                                                 </button>    
                                             </td>

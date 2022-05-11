@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateCategoriasTable extends Migration
 {
@@ -18,6 +19,10 @@ class CreateCategoriasTable extends Migration
             $table->string('categoria');
             $table->timestamps();
         });
+        DB::table('categorias')->insert(array('categoria'=>'Exatas'));
+        DB::table('categorias')->insert(array('categoria'=>'Humanas'));
+        DB::table('categorias')->insert(array('categoria'=>'Biológicas'));
+
     }
 
     /**

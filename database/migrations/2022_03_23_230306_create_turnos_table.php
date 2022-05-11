@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateTurnosTable extends Migration
 {
@@ -18,6 +19,8 @@ class CreateTurnosTable extends Migration
             $table->string('turno');
             $table->timestamps();
         });
+        DB::table('turnos')->insert(array('turno'=>'Noturno'));
+
     }
 
     /**

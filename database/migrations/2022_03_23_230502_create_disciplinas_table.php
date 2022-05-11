@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateDisciplinasTable extends Migration
 {
@@ -19,6 +20,8 @@ class CreateDisciplinasTable extends Migration
             $table->boolean('ativo');
             $table->timestamps();
         });
+        DB::table('disciplinas')->insert(array('nome_disciplina'=>'Engenharia de software','ativo'=>true));
+        DB::table('disciplinas')->insert(array('nome_disciplina'=>'Aplicação de vacinas','ativo'=>true));
     }
 
     /**

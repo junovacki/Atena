@@ -24,7 +24,7 @@
         {{ session('alert') }}
     </div>
 @endif
-@if ($_COOKIE['nivelUsuario'] == 2 )
+@if ($_COOKIE['nivelUsuario'] == 3 )
 <form id="formCadastro" action="{{ url('/registrarPergunta') }}" method="post">
         @csrf
         <!-- <div id="campoLogin">
@@ -33,12 +33,12 @@
         <div id="campoCurso">
             Nome do curso: <select id="curso" name="curso" style="margin-left: 0px; max-width: 100px;">
             @foreach($cursos as $curso)
-                <option value="<?= $curso->id?>"><?= $curso->nome_curso?></option>
+                <option value="<?= $curso->idCurso?>"><?= $curso->nome_curso?></option>
             @endforeach
             </select>
             Nome da disciplina: <select id="disciplina" name="disciplina" style="max-width: 100px;">
             @foreach($disciplinas as $disciplina)
-                <option value="<?= $disciplina->id?>"><?= $disciplina->nome_disciplina?></option>
+                <option value="<?= $disciplina->idDisciplina?>"><?= $disciplina->nome_disciplina?></option>
             @endforeach
             </select>
         </div>
@@ -47,26 +47,31 @@
             Escreva o texto da pergunta aqui...
          </textarea>
         </div> 
-        RADIO BUTTON
-        <div id="campoRespostaA">
-            <input type="checkbox" name="checkA"> A) <textarea rows = "3" cols = "60" name = "respostaA" style="margin-left: 35px;">
-            Escreva o texto da resposta aqui...
-         </textarea>
-        </div>
-        <div id="campoRespostaB">
-            <input type="checkbox" name="checkB"> B) <textarea rows = "3" cols = "60" name = "respostaB" style="margin-left: 35px;">
-            Escreva o texto da resposta aqui...
-         </textarea>
-        </div>
-        <div id="campoRespostaC">
-            <input type="checkbox" name="checkC"> C) <textarea rows = "3" cols = "60" name = "respostaC" style="margin-left: 35px;">
-            Escreva o texto da resposta aqui...
-         </textarea>
-        </div>
-        <div id="campoRespostaD">
-            <input type="checkbox" name="checkD"> D) <textarea rows = "3" cols = "60" name = "respostaD" style="margin-left: 35px;">
-            Escreva o texto da resposta aqui...
-         </textarea>
+        <div>
+            <div id="campoRespostaA">
+                <input type="radio" name="radio" id="radioA" onchange="a()"> A) <textarea rows = "3" cols = "60" name = "respostaA" style="margin-left: 35px;">
+                Escreva o texto da resposta aqui...
+            </textarea>
+            </div>
+            <div id="campoRespostaB">
+                <input type="radio" name="radio" id="radioB" onchange="b()"> B) <textarea rows = "3" cols = "60" name = "respostaB" style="margin-left: 35px;">
+                Escreva o texto da resposta aqui...
+            </textarea>
+            </div>
+            <div id="campoRespostaC">
+                <input type="radio" name="radio" id="radioC" onchange="c()"> C) <textarea rows = "3" cols = "60" name = "respostaC" style="margin-left: 35px;">
+                Escreva o texto da resposta aqui...
+            </textarea>
+            </div>
+            <div id="campoRespostaD">
+                <input type="radio" name="radio" id="radioD" onchange="d()"> D) <textarea rows = "3" cols = "60" name = "respostaD" style="margin-left: 35px;">
+                Escreva o texto da resposta aqui...
+            </textarea>
+            <div id="campoRespostaE">
+                <input type="radio" name="radio" id="radioE" onchange="e()"> E) <textarea rows = "3" cols = "60" name = "respostaE" style="margin-left: 35px;">
+                Escreva o texto da resposta aqui...
+            </textarea>
+            </div>
         </div>
         <input type="submit" name="submitCurso" id="submitCurso" value="Enviar"/>
 </form>
@@ -74,3 +79,40 @@
     
 </body>
 </html>
+<script>
+    function a(){
+        radioA.setAttribute("value", "A"); 
+        document.getElementById("radioB").removeAttribute("value");
+        document.getElementById("radioC").removeAttribute("value");
+        document.getElementById("radioD").removeAttribute("value");
+        document.getElementById("radioE").removeAttribute("value");
+    }
+    function b(){
+        radioB.setAttribute("value", "B"); 
+        document.getElementById("radioA").removeAttribute("value");
+        document.getElementById("radioC").removeAttribute("value");
+        document.getElementById("radioD").removeAttribute("value");
+        document.getElementById("radioE").removeAttribute("value");
+    }
+    function c(){
+        radioC.setAttribute("value", "C"); 
+        document.getElementById("radioB").removeAttribute("value");
+        document.getElementById("radioA").removeAttribute("value");
+        document.getElementById("radioD").removeAttribute("value");
+        document.getElementById("radioE").removeAttribute("value");
+    }
+    function d(){
+        radioD.setAttribute("value", "D"); 
+        document.getElementById("radioB").removeAttribute("value");
+        document.getElementById("radioC").removeAttribute("value");
+        document.getElementById("radioA").removeAttribute("value");
+        document.getElementById("radioE").removeAttribute("value");
+    }
+    function e(){
+        radioE.setAttribute("value", "E"); 
+        document.getElementById("radioB").removeAttribute("value");
+        document.getElementById("radioC").removeAttribute("value");
+        document.getElementById("radioD").removeAttribute("value");
+        document.getElementById("radioA").removeAttribute("value");
+    }
+</script>

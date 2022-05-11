@@ -3,7 +3,7 @@
     float: inherit;
     position: center;
     width: 700px;
-    height: 700px;
+    height: 900px;
     margin-left: 26%;
     margin-top: 70px;
     border-style: solid;
@@ -50,6 +50,9 @@
 #campoRespostaD{
     margin-top: 3%;
     margin-left: 10%;
+}
+#campoRespostaE{
+    margin-top: 3%;
 }
 #submitCurso{
     margin-top: 5%;

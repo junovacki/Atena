@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreatePerguntasTable extends Migration
 {
@@ -34,6 +35,7 @@ class CreatePerguntasTable extends Migration
             $table->foreign('idDisciplina')->references('idDisciplina')->on('disciplinas');
 
         });
+        DB::table('perguntas')->insert(array('criado_por'=>'professor', 'texto_pergunta'=>'Pergunta escrita pelo professor', 'idCurso'=>1, 'idDisciplina'=>1, 'texto_resposta_a'=>'Resposta A escrita pelo professor', 'texto_resposta_b'=>'Resposta B escrita pelo professor', 'texto_resposta_c'=>'Resposta C escrita pelo professor', 'texto_resposta_d'=>'Resposta D escrita pelo professor', 'texto_resposta_e'=>'Resposta E escrita pelo professor', 'alternativa_a'=>'1', 'alternativa_b'=>'0', 'alternativa_c'=>'0', 'alternativa_d'=>'0', 'alternativa_e'=>'0'));
     }
 
     /**
