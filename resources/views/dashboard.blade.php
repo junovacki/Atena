@@ -97,7 +97,7 @@ use Illuminate\Support\Facades\DB;
                     </div>
                     
                 </div>
-                <div class="col-lg-4 grid-margin stretch-card">
+                <div class="col-lg-8 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Cursos Cadastrados</h4>
@@ -138,7 +138,8 @@ use Illuminate\Support\Facades\DB;
                     </div>
                     
                 </div>
-                <div class="col-lg-4 grid-margin stretch-card">
+                <br>
+                <div class="col-lg-4 grid-margin stretch-card" style="padding-top: 30px;">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Disciplinas Cadastradas</h4>
