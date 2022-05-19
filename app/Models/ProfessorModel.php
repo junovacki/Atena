@@ -93,11 +93,11 @@ class ProfessorModel extends Model
         }
             
     }
-    public function deletaPergunta($id){
+    public function deletaPergunta($idPergunta){
         
         $insert = DB::table('perguntas')
                     
-                    ->delete($id)
+                    ->deletePergunta($idPergunta)
                     ;
         
         echo "<script language='javascript' type='text/javascript'>

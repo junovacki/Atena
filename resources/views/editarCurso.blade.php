@@ -1,7 +1,15 @@
 <?php
 use Illuminate\Support\Facades\DB;
 
-    $curso = DB::select("SELECT * FROM cursos where id = ?", [$idCurso]);
+    $curso = DB::select("SELECT * FROM cursos 
+                        INNER JOIN categorias ON cursos.idCategoria=categorias.idCategoria
+                        INNER JOIN modalidades ON cursos.idModalidade=modalidades.idModalidade
+                        INNER JOIN turnos ON cursos.idTurno=turnos.idTurno
+                        where idCurso = ?", [$idCurso]);
+
+    $modalidades = DB::select("SELECT * FROM modalidades");
+    $categorias = DB::select("SELECT * FROM categorias");
+    $turnos = DB::select("SELECT * FROM turnos");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,22 +29,37 @@ use Illuminate\Support\Facades\DB;
         {{ session('alert') }}
     </div>
 @endif
-    @if ($_COOKIE['nivelUsuario'] == 0 )
+    @if ($_COOKIE['nivelUsuario'] == 1 )
     <form id="formCadastro" action="{{ url('/atualizarCurso') }}" method="post">
         @csrf
+        @foreach($curso as $cursos)
         <div id="campoLogin">
-            Nome Curso: <input type="text" name="nomeCurso" id="login" value="<?= $curso[0]->nome_curso ?>"/>
+            Nome Curso: <input type="text" name="nomeCurso" id="login" value="<?= $cursos->nome_curso ?>"/>
         </div>
         <div id="campoTipoUsuario">
-            Tipo do curso: <select id="tipoUsuario" name="tipoCurso">
-                <option value="0" <?php if($curso[0]->tipo_curso == '0'){echo "selected";} ?>>Tecnologia</option>
-                <option value="1" <?php if($curso[0]->tipo_curso == '1'){echo "selected";} ?>>Saúde</option>
-                <option value="2" <?php if($curso[0]->tipo_curso == '2'){echo "selected";} ?>>Exatas</option>
-                <option value="3" <?php if($curso[0]->tipo_curso == '3'){echo "selected";} ?>>Humanas</option>
+            Modalidade do curso: <select id="tipoCurso" name="tipoModalidade" style="margin-left: 14px;">
+            @foreach($modalidades as $modalidade)
+                <option value="<?= $modalidade->idModalidade?>" <?php if($cursos->idModalidade == $modalidade->idModalidade){echo "selected";} ?>><?= $modalidade->modalidade?></option>
+            @endforeach
             </select>
         </div>
-        <input type="hidden" value="<?= $curso[0]->id?>" name="idCurso" id="idUsuario"/>
-        <input type="submit" name="submitUsuario" id="submitUsuario" value="Enviar"/>
+        <div id="campoTipoUsuario">
+            Categoria do curso: <select id="tipoCurso" name="tipoCategoria" style="margin-left: 14px;">
+            @foreach($categorias as $categoria)
+                <option value="<?= $categoria->idCategoria?>" <?php if($cursos->idCategoria == $categoria->idCategoria){echo "selected";} ?>><?= $categoria->categoria?></option>
+            @endforeach
+            </select>
+        </div>
+        <div id="campoTipoUsuario">
+            Turno do curso: <select id="tipoCurso" name="tipoTurno" style="margin-left: 14px;">
+            @foreach($turnos as $turno)
+                <option value="<?= $turno->idTurno?>" <?php if($cursos->idTurno == $turno->idTurno){echo "selected";} ?>><?= $turno->turno?></option>
+            @endforeach
+            </select>
+        </div>
+        @endforeach
+        <input type="hidden" value="<?= $curso[0]->idCurso?>" name="idCurso" id="idUsuario"/>
+        <input type="submit" name="submitCurso" id="submitCurso" value="Enviar"/>
     </form>
     @endif
 </body>

@@ -4,7 +4,11 @@ use Illuminate\Support\Facades\DB;
     if($_COOKIE['nivelUsuario'] == 1){
         $usuarios = DB::select("SELECT * FROM users");
         $disciplinas = DB::select("SELECT * FROM disciplinas");
-        $cursos = DB::select("SELECT * FROM cursos");
+        $cursos = DB::select("SELECT * FROM cursos 
+                        INNER JOIN categorias ON cursos.idCategoria=categorias.idCategoria
+                        INNER JOIN modalidades ON cursos.idModalidade=modalidades.idModalidade
+                        INNER JOIN turnos ON cursos.idTurno=turnos.idTurno
+                        ");
         foreach($usuarios as $user){
             switch ($user->nivelAcesso){
                 case 1:
@@ -15,22 +19,6 @@ use Illuminate\Support\Facades\DB;
                     break;
                 case 3:
                     $user->nivelAcesso='Professor';
-                    break;
-            }
-        }
-        foreach($cursos as $curso){
-            switch ($curso->tipo_curso){
-                case 0:
-                    $curso->tipo_curso='Tecnologia';
-                    break;
-                case 1:
-                    $curso->tipo_curso='Saúde';
-                    break;
-                case 2:
-                    $curso->tipo_curso='Exatas';
-                    break;
-                case 3:
-                    $curso->tipo_curso='Humanas';
                     break;
             }
         }
@@ -119,7 +107,9 @@ use Illuminate\Support\Facades\DB;
                                     <thead>
                                         <tr>
                                             <th>Nome</th>
-                                            <th>Tipo</th>
+                                            <th>Categoria</th>
+                                            <th>Modalidade</th>
+                                            <th>Turno</th>
                                             <th>AÇÃO</th>
                                         </tr>
                                     </thead>
@@ -127,12 +117,14 @@ use Illuminate\Support\Facades\DB;
                                         @foreach ($cursos as $curso)
                                         <tr>
                                             <td><?= $curso->nome_curso?></td>
-                                            <td><?= $curso->tipo_curso?></td>
+                                            <td><?= $curso->categoria?></td>
+                                            <td><?= $curso->modalidade?></td>
+                                            <td><?= $curso->turno?></td>
                                             <td>
-                                                <a href="editarCurso/<?= $curso->id ?>" id="view" class="button">
+                                                <a href="editarCurso/<?= $curso->idCurso ?>" id="view" class="button">
                                                     <i class="fa fa-eye fa-lg fa-align-center" aria-hidden="true"></i>
                                                 </a> 
-                                                <button type="button" class="button" id="view"  onclick="deletarCurso(<?= $curso->id?>)">
+                                                <button type="button" class="button" id="view"  onclick="deletarCurso(<?= $curso->idCurso?>)">
                                                     <i class="fa fa-solid fa-ban " ></i>
                                                 </button>    
                                             </td>
@@ -164,10 +156,10 @@ use Illuminate\Support\Facades\DB;
                                         <tr>
                                             <td><?= $disciplina->nome_disciplina?></td>
                                             <td>
-                                                <a href="editarDisciplina/<?= $disciplina->id ?>" id="view" class="button">
+                                                <a href="editarDisciplina/<?= $disciplina->idDisciplina ?>" id="view" class="button">
                                                     <i class="fa fa-eye fa-lg fa-align-center" aria-hidden="true"></i>
                                                 </a> 
-                                                <button type="button" class="button" id="view"  onclick="deletarDisciplina(<?= $disciplina->id?>)">
+                                                <button type="button" class="button" id="view"  onclick="deletarDisciplina(<?= $disciplina->idDisciplina?>)">
                                                     <i class="fa fa-solid fa-ban " ></i>
                                                 </button>    
                                             </td>

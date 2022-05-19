@@ -10,9 +10,7 @@ class Adm extends Model
 {
     use HasFactory;
     public function cadastraCurso($params){
-        
         $nome = $params['nome_curso'];
-        $tipo = $params['tipoCurso'];
         $select = DB::table('cursos')
                     ->select('nome_curso')
                     ->whereRaw('nome_curso = ? ', [$nome])->first();
@@ -21,7 +19,7 @@ class Adm extends Model
             return $error[]='Curso com esse nome já existe no sistema!!';
         }else{
             $insert = DB::table('cursos')
-                        ->insert(['nome_curso' => $nome,'tipo_curso' => $tipo]);
+                        ->insert(['nome_curso' => $nome, 'idModalidade' => $params['tipoModalidade'], 'idCategoria' => $params['tipoCategoria'], 'idTurno' => $params['tipoTurno'], 'ativo' => true]);
             
             if($insert){
                 return $error[]='Curso cadastrado com sucesso!!';
@@ -39,7 +37,7 @@ class Adm extends Model
             return $error[]='Disciplina com esse nome já existe no sistema!!';
         }else{
             $insert = DB::table('disciplinas')
-                        ->insert(['nome_disciplina' => $nome]);
+                        ->insert(['nome_disciplina' => $nome, 'ativo' => true]);
             
             if($insert){
                 return $error[]='Disciplina cadastrada com sucesso!!';
@@ -48,8 +46,8 @@ class Adm extends Model
     }
     public function editaCurso($params){
         $insert = DB::table('cursos')
-                    ->where('id', $params['idCurso'])
-                    ->update(['nome_curso' => $params['nomeCurso'],'tipo_curso' => $params['tipoCurso']])
+                    ->where('idCurso', $params['idCurso'])
+                    ->update(['nome_curso' => $params['nomeCurso'], 'idModalidade' => $params['tipoModalidade'], 'idCategoria' => $params['tipoCategoria'], 'idTurno' => $params['tipoTurno']])
                     ;
         
         if($insert){
@@ -60,7 +58,7 @@ class Adm extends Model
         
         $insert = DB::table('cursos')
                     
-                    ->delete($id)
+                    ->deleteCurso($id)
                     ;
         
         echo "<script language='javascript' type='text/javascript'>
@@ -69,7 +67,7 @@ class Adm extends Model
     }
     public function editaDisciplina($params){
         $insert = DB::table('disciplinas')
-                    ->where('id', $params['idDisciplina'])
+                    ->where('idDisciplina', $params['idDisciplina'])
                     ->update(['nome_disciplina' => $params['nomeDisciplina']])
                     ;
         
@@ -81,7 +79,7 @@ class Adm extends Model
         
         $insert = DB::table('disciplinas')
                     
-                    ->delete($id)
+                    ->deleteDisciplina($id)
                     ;
         
         echo "<script language='javascript' type='text/javascript'>

@@ -1,7 +1,7 @@
 <?php
 use Illuminate\Support\Facades\DB;
 
-    $disciplina = DB::select("SELECT * FROM disciplinas where id = ?", [$idDisciplina]);
+    $disciplina = DB::select("SELECT * FROM disciplinas where idDisciplina = ?", [$idDisciplina]);
     
 ?>
 <!DOCTYPE html>
@@ -22,13 +22,13 @@ use Illuminate\Support\Facades\DB;
         {{ session('alert') }}
     </div>
 @endif
-    @if ($_COOKIE['nivelUsuario'] == 0 )
+    @if ($_COOKIE['nivelUsuario'] == 1 )
     <form id="formCadastro" action="{{ url('/atualizarDisciplina') }}" method="post">
         @csrf
         <div id="campoLogin">
             Nome da disciplina: <input type="text" name="nomeDisciplina" id="login" value="<?= $disciplina[0]->nome_disciplina ?>"/>
         </div>
-        <input type="hidden" value="<?= $disciplina[0]->id?>" name="idDisciplina" id="idDisciplina"/>
+        <input type="hidden" value="<?= $disciplina[0]->idDisciplina?>" name="idDisciplina" id="idDisciplina"/>
         <input type="submit" name="submitUsuario" id="submitUsuario" value="Enviar"/>
     </form>
     @endif

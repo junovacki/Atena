@@ -18,7 +18,7 @@
         {{ session('alert') }}
     </div>
 @endif
-    @if ($_COOKIE['nivelUsuario'] == 0 )
+    @if ($_COOKIE['nivelUsuario'] == 1 )
     <form id="formCadastro" action="{{ url('/registrarUsuario') }}" method="post">
         @csrf
         <div id="campoLogin">
@@ -29,9 +29,8 @@
         </div>
         <div id="campoTipoUsuario">
             Tipo de usuário: <select id="tipoUsuario" name="tipoUsuario">
-                <option value="0">Administrador/Secreteria</option>
-                <option value="1">Coordenador</option>
-                <option value="2">Professor</option>
+                <option value="2">Coordenador</option>
+                <option value="3">Professor</option>
             </select>
         </div>
         <input type="submit" name="submitUsuario" id="submitUsuario" value="Enviar"/>

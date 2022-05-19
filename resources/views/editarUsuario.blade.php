@@ -1,7 +1,7 @@
 <?php
 use Illuminate\Support\Facades\DB;
 
-    $usuario = DB::select("SELECT * FROM users where id = ?", [$idUsuario]);
+    $usuario = DB::select("SELECT * FROM users where idUser = ?", [$idUsuario]);
     
 ?>
 <!DOCTYPE html>
@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\DB;
         {{ session('alert') }}
     </div>
 @endif
-    @if ($_COOKIE['nivelUsuario'] == 0 )
+    @if ($_COOKIE['nivelUsuario'] == 1 )
     <form id="formCadastro" action="{{ url('/atualizarUsuario') }}" method="post">
         @csrf
         <div id="campoLogin">
@@ -33,12 +33,11 @@ use Illuminate\Support\Facades\DB;
         </div>
         <div id="campoTipoUsuario">
             Tipo de usuário: <select id="tipoUsuario" name="tipoUsuario">
-                <option value="0" <?php if($usuario[0]->nivelAcesso == '0'){echo "selected";} ?>>Administrador/Secreteria</option>
-                <option value="1" <?php if($usuario[0]->nivelAcesso == '1'){echo "selected";} ?>>Coordenador</option>
-                <option value="2" <?php if($usuario[0]->nivelAcesso == '2'){echo "selected";} ?>>Professor</option>
+                <option value="2" <?php if($usuario[0]->nivelAcesso == '2'){echo "selected";} ?>>Coordenador</option>
+                <option value="3" <?php if($usuario[0]->nivelAcesso == '3'){echo "selected";} ?>>Professor</option>
             </select>
         </div>
-        <input type="hidden" value="<?= $usuario[0]->id?>" name="idUsuario" id="idUsuario"/>
+        <input type="hidden" value="<?= $usuario[0]->idUser?>" name="idUsuario" id="idUsuario"/>
         <input type="submit" name="submitUsuario" id="submitUsuario" value="Enviar"/>
     </form>
     @endif

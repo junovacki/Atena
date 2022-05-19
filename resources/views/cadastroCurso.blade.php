@@ -1,3 +1,11 @@
+<?php
+use Illuminate\Support\Facades\DB;
+
+    $cursos = DB::select("SELECT * FROM cursos");
+    $modalidades = DB::select("SELECT * FROM modalidades");
+    $categorias = DB::select("SELECT * FROM categorias");
+    $turnos = DB::select("SELECT * FROM turnos");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,18 +26,31 @@
         {{ session('alert') }}
     </div>
 @endif
-@if ($_COOKIE['nivelUsuario'] == 0 )
+@if ($_COOKIE['nivelUsuario'] == 1 )
     <form id="formCadastro" action="{{ url('/registrarCurso') }}" method="post">
         @csrf
         <div id="campoLogin">
             Nome do curso: <input type="text" name="nome_curso" id="nome_curso"/>
         </div>
         <div id="campoTipoUsuario">
-            Tipo do curso: <select id="tipoCurso" name="tipoCurso" style="margin-left: 14px;">
-                <option value="0">Tecnologia</option>
-                <option value="1">Saúde</option>
-                <option value="2">Exatas</option>
-                <option value="3">Humanas</option>
+            Modalidade do curso: <select id="tipoCurso" name="tipoModalidade" style="margin-left: 14px;">
+            @foreach($modalidades as $modalidade)
+                <option value="<?= $modalidade->idModalidade?>"><?= $modalidade->modalidade?></option>
+            @endforeach
+            </select>
+        </div>
+        <div id="campoTipoUsuario">
+            Categoria do curso: <select id="tipoCurso" name="tipoCategoria" style="margin-left: 14px;">
+            @foreach($categorias as $categoria)
+                <option value="<?= $categoria->idCategoria?>"><?= $categoria->categoria?></option>
+            @endforeach
+            </select>
+        </div>
+        <div id="campoTipoUsuario">
+            Turno do curso: <select id="tipoCurso" name="tipoTurno" style="margin-left: 14px;">
+            @foreach($turnos as $turno)
+                <option value="<?= $turno->idTurno?>"><?= $turno->turno?></option>
+            @endforeach
             </select>
         </div>
         <input type="submit" name="submitCurso" id="submitCurso" value="Enviar"/>

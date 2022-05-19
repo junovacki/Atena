@@ -48,7 +48,7 @@ class LoginModel extends Model
             return $error[]='Login já existe no sistema!!';
         }else{
             $insert = DB::table('users')
-                        ->insert(['user' => $login,'password' => $senha,'nivelAcesso' => $tipoUsuario]);
+                        ->insert(['user' => $login,'password' => $senha,'nivelAcesso' => $tipoUsuario, 'ativo' => true]);
             
             if($insert){
                 return $error[]='Usuário cadastrado com sucesso!!';
@@ -62,7 +62,7 @@ class LoginModel extends Model
         $tipoUsuario = $params['tipoUsuario'];
         
         $insert = DB::table('users')
-                    ->where('id', $params['idUsuario'])
+                    ->where('idUser', $params['idUsuario'])
                     ->update(['user' => $login,'password' => $senha,'nivelAcesso' => $tipoUsuario])
                     ;
         
@@ -74,7 +74,7 @@ class LoginModel extends Model
         
         $insert = DB::table('users')
                     
-                    ->delete($id)
+                    ->deleteUser($id)
                     ;
         
         echo "<script language='javascript' type='text/javascript'>

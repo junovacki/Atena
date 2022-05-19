@@ -18,7 +18,7 @@
         {{ session('alert') }}
     </div>
 @endif
-@if ($_COOKIE['nivelUsuario'] == 0 )
+@if ($_COOKIE['nivelUsuario'] == 1 )
     <form id="formCadastro" action="{{ url('/registrarDisciplina') }}" method="post">
         @csrf
         <div id="campoLogin">
